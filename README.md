@@ -1,19 +1,30 @@
-Source IP Obfuscation in Network Scanning
-Overview
+🌐 Source IP Obfuscation in Network Scanning
 
-This project demonstrates how the source IP address visible to a target system changes when Nmap scan traffic is routed through a proxy (Tor) instead of being sent directly.
+A practical exploration of how proxy-routed scanning affects source IP visibility and scan behavior.
 
-The project focuses on:
+✨ Overview
 
-Network traffic flow
+This project explores how the source IP address observed by a target system changes when Nmap scan traffic is routed through a proxy (Tor) instead of being sent directly.
 
-Source IP visibility
+It focuses on network flow, IP visibility, and scan result behavior, while also providing persistent scan reports for analysis.
 
-Differences between local packet capture and target-side observation
+🔍 What This Project Demonstrates
 
-Report generation for scan results
+How Nmap normally exposes the scanner’s source IP
 
-How It Works
+How proxy routing alters the source IP seen by the target
+
+Differences between:
+
+Local packet capture (scanner-side)
+
+Remote observation (target-side)
+
+How proxy routing impacts scan accuracy
+
+Automatic generation of human-readable scan reports
+
+🧠 How It Works
 Scanner (VM)
    ↓
 Tor SOCKS Proxy
@@ -25,43 +36,43 @@ Target System
 
 Nmap traffic is routed through Tor using ProxyChains
 
-The target system sees the Tor exit node IP as the source
+The target system sees the Tor exit node IP
 
-The scanner’s local IP is visible only at the local capture point (Wireshark)
+The scanner’s local IP appears only in local packet captures
 
-Tools Used
+🧰 Tools & Stack
 
-Nmap
+Nmap – Network scanning
 
-Tor
+Tor – Proxy routing
 
-ProxyChains
+ProxyChains – Traffic redirection
 
-Wireshark
+Wireshark – Packet analysis
 
-Python
+Python – Automation & reporting
 
-Kali Linux (Virtual Machine)
+Kali Linux (VM) – Execution environment
 
-Features
+🚀 Features
 
-Proxy-routed Nmap TCP connect scanning
+Proxy-routed TCP connect scanning (-sT)
 
-Automatic Tor circuit changes during scans
+Automatic Tor circuit rotation
 
-Controlled and slow scanning behavior
+Controlled, slow scanning behavior
 
-Real-time scan output in terminal
+Real-time terminal output
 
 Automatic text report generation
 
-Timestamped scan reports
+Timestamped scan records for later review
 
-Scan Reports
+📝 Scan Reports
 
-After each scan, a text report is automatically generated and saved.
+Every scan automatically generates a clean text report.
 
-Report Contents
+📄 Report Includes
 
 Scan timestamp
 
@@ -69,44 +80,44 @@ Target IP / domain
 
 Ports scanned
 
-Tor exit IPs used during the scan
+Tor exit IPs used
 
 Raw Nmap output per port
 
 Summary of open ports
 
-Report Location
+📁 Report Location
 reports/
 └── scan_report_YYYYMMDD_HHMMSS.txt
 
-Observations
+👀 Observations
 
-Wireshark on the scanner shows the local private IP because capture happens before proxy routing
+Local packet captures show the private IP because traffic is captured before proxy routing
 
 The target system sees only the Tor exit node IP
 
-Scan traffic appears as encrypted TLS traffic
+Scan traffic appears as encrypted TLS streams
 
-Proxy-based scans against local network targets may show open ports as closed or filtered
+Proxy-based scans against local (LAN) targets may produce false negatives
 
-Limitations
+⚠️ Limitations
 
-Proxy routing does not work reliably for private (LAN) IP addresses
+Proxy routing is unreliable for private (LAN) IP addresses
 
-Proxy-based scans can produce false negatives
+Proxy-based scans may miss open services
 
-Tor traffic can be detected or blocked
+Tor traffic can be detected or filtered
 
-Source IP obfuscation does not imply anonymity
+Source IP obfuscation ≠ anonymity
 
-Repository Structure
+📂 Repository Structure
 .
 ├── script.py
 ├── reports/
 │   └── scan_report_*.txt
 └── README.md
 
-Example Usage
+▶️ Usage
 sudo python3 script.py
 
 
@@ -116,7 +127,9 @@ Target IP / domain
 
 Ports to scan
 
-Conclusion
+Reports are generated automatically after the scan completes.
 
-This project shows how routing network scans through a proxy affects source IP visibility and scan behavior.
-It also demonstrates how scan data can be stored in structured text reports for later analysis.
+🏁 Conclusion
+
+This project highlights how proxy-based routing changes source IP visibility during network scans and how it affects scan accuracy.
+It combines hands-on scanning, traffic analysis, and persistent reporting into a single, practical workflow.
